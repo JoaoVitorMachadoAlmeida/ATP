@@ -23,11 +23,22 @@ devidas declarações e acione os módulos para exemplificar o seu uso.
 Ex5 - Faça uma função que sorteie 5 números (entre 10 e 30) e retorne em um vetor. Depois crie
 um procedimento que leia as tentativas do usuário para acertar um destes números. O
 programa só deve parar quando o usuário acertar um número sorteado
+
+Ex6 - Em uma cidade, sabe-se hipoteticamente que, em outubro de 2024, não ocorreu temperatura
+inferior a 15°C, nem superior a 40°C. Faça um programa que armazene as temperaturas de
+cada dia de outubro em um vetor (de 31 posições), calcule e imprima:
+a) A menor e a maior temperatura ocorrida;
+b) A temperatura média;
+c) O número de dias nos quais a temperatura foi inferior à temperatura média
+
+EX7 - Desenvolva um procedimento que preencha uma matriz 3x3 com números aleatórios de 1 a
+30. Depois, crie uma função que encontre, mostre todos os números primos presentes na
+matriz e retorne a soma das posições desses números primos
 */
 using System;
 class Program {
   static void Main() {
-    Console.WriteLine("|Ex1 - 1| |Ex2 - 2| |Ex3 - 3| |Ex4 - 4| |Ex5 - 5| ");
+    Console.WriteLine("|Ex1 - 1| |Ex2 - 2| |Ex3 - 3| |Ex4 - 4| |Ex5 - 5| |Ex6 - 6| ");
     string escolha = Console.ReadLine();
 
     switch(escolha)
@@ -64,6 +75,13 @@ class Program {
       ex5.Info();
 
       break;
+      
+    case "6":
+    Ex6 ex6 = new Ex6();
+    
+    ex6.Info();
+    
+    break;
 
     }
   }
@@ -286,4 +304,41 @@ class Ex5
       Console.WriteLine("Continue tentando");
     }
   }
+}
+/********************************/
+class Ex6
+{
+    public void Info()
+    {
+        int[] temperaturas = new int[31];
+        Random random = new Random();
+        int menorTemp = 41;
+        int maiorTemp = 14;
+        int somaTemp = 0;
+        int countDays = 0;
+        
+        for(int i = 0; i < temperaturas.Length; i++)
+        {
+            int temp = random.Next(15,41);
+            somaTemp += temp;
+            temperaturas[i] = temp;
+            
+            if(temp > maiorTemp) maiorTemp = temp;
+            
+            if(temp < menorTemp) menorTemp = temp;
+        }
+        
+        double tempMedia = (double)somaTemp / temperaturas.Length;
+        
+        foreach(int temp in temperaturas)
+        {
+            if(temp < tempMedia) countDays++;
+        }
+        
+        Console.WriteLine(String.Join(", ",temperaturas));
+        
+        Console.WriteLine($"A menor temperatura foi: {menorTemp}°. Já a maior foi {maiorTemp}°");
+        Console.WriteLine($"A temperatura média foi: {tempMedia:F2}");
+        Console.WriteLine($"Numero de dias que a temperatura foi menor que a media: {countDays}");
+    }
 }
