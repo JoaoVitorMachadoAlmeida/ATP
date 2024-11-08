@@ -38,7 +38,7 @@ matriz e retorne a soma das posições desses números primos
 using System;
 class Program {
   static void Main() {
-    Console.WriteLine("|Ex1 - 1| |Ex2 - 2| |Ex3 - 3| |Ex4 - 4| |Ex5 - 5| |Ex6 - 6| ");
+    Console.WriteLine("|Ex1 - 1| |Ex2 - 2| |Ex3 - 3| |Ex4 - 4| |Ex5 - 5| |Ex6 - 6| |Ex7 - 7| ");
     string escolha = Console.ReadLine();
 
     switch(escolha)
@@ -82,7 +82,13 @@ class Program {
     ex6.Info();
     
     break;
-
+			
+	case "7":
+	Ex7 ex7 = new Ex7();		
+			
+	ex7.Info();
+			
+	break;		
     }
   }
 }
@@ -341,4 +347,66 @@ class Ex6
         Console.WriteLine($"A temperatura média foi: {tempMedia:F2}");
         Console.WriteLine($"Numero de dias que a temperatura foi menor que a media: {countDays}");
     }
+}
+/*********************/
+class Ex7
+{
+	
+	public void Info()
+	{
+	int[,] matriz = new int[3,3];
+		
+		PreencherMatriz(matriz);
+		
+		int somaPrimo = SomaMatriz(matriz);
+		
+		Console.WriteLine($"A soma das posições que contem numeros primos é: {somaPrimo}");
+		
+		
+	}
+	// Desenvolva um procedimento que preencha uma matriz 3x3 com números aleatórios de 1 a 30
+	public static void PreencherMatriz(int[,] matriz)
+	{
+		Random random = new Random();
+		
+		for(int i = 0; i < matriz.GetLength(0); i++)
+		{
+			for(int j = 0; j < matriz.GetLength(1); j++)
+			{
+				Console.Write($"{matriz[i,j] = random.Next(1,31)}\t");
+			}
+			Console.WriteLine();
+		}
+	}
+	
+	// Depois, crie uma função que encontre, mostre todos os números primos presentes na matriz e retorne a soma das posições desses números primos
+	public static int SomaMatriz(int[,] matriz)
+	{
+		int numero = 0;
+		int somaPosicao = 0;
+		
+		for(int i = 0; i < matriz.GetLength(0); i++)
+		{
+			for(int j = 0; j < matriz.GetLength(1); j++)
+			{
+				numero = matriz[i,j];
+				
+				if(EhPrimo(numero))
+					somaPosicao += (i+j);
+			}
+		}
+		return somaPosicao;
+	}
+	
+	private static bool EhPrimo(int numero)
+	{
+		if (numero < 2) return false;
+		
+		for(int i = 2; i < Math.Sqrt(numero); i++)
+		{
+			if(numero % i == 0) return false;
+			
+		}
+		return true;
+	}
 }
