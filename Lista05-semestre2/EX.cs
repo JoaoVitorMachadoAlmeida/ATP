@@ -34,11 +34,20 @@ c) O número de dias nos quais a temperatura foi inferior à temperatura média
 EX7 - Desenvolva um procedimento que preencha uma matriz 3x3 com números aleatórios de 1 a
 30. Depois, crie uma função que encontre, mostre todos os números primos presentes na
 matriz e retorne a soma das posições desses números primos
+
+Ex8 - Faça um procedimento que preencha uma matriz M 5 x 5. Faça uma função que receba
+uma matriz preenchida, calcule e retorne cada uma das somas a seguir (uma função para
+cada item abaixo):
+a) da linha 3 de M
+b) da coluna 2 de M
+c) da diagonal principal
+d) da diagonal secundária
+e) de todos os elementos da matriz
 */
 using System;
 class Program {
   static void Main() {
-    Console.WriteLine("|Ex1 - 1| |Ex2 - 2| |Ex3 - 3| |Ex4 - 4| |Ex5 - 5| |Ex6 - 6| |Ex7 - 7| ");
+    Console.WriteLine("|Ex1 - 1| |Ex2 - 2| |Ex3 - 3| |Ex4 - 4| |Ex5 - 5| |Ex6 - 6| |Ex7 - 7| |Ex8 - 8| ");
     string escolha = Console.ReadLine();
 
     switch(escolha)
@@ -88,7 +97,14 @@ class Program {
 			
 	ex7.Info();
 			
-	break;		
+	break;	
+	
+	case "8":
+	Ex8 ex8 = new Ex8();
+	
+	ex8.Info();
+	
+	break;
     }
   }
 }
@@ -409,4 +425,151 @@ class Ex7
 		}
 		return true;
 	}
+}
+/******************************/
+/*
+Faça um procedimento que preencha uma matriz M 5 x 5. Faça uma função que receba
+uma matriz preenchida, calcule e retorne cada uma das somas a seguir (uma função para
+cada item abaixo):
+a) da linha 3 de M
+b) da coluna 2 de M
+c) da diagonal principal
+d) da diagonal secundária
+e) de todos os elementos da matriz
+*/
+class Ex8
+{
+    public  void Info()
+    {
+        int[,] matriz = new int [5,5];
+        
+        PreencherMatriz(matriz);
+        MostrarMatriz(matriz);
+        Escolha(matriz);
+    }
+    
+    public static void Escolha(int [,] matriz)
+    {
+        Console.WriteLine();
+        Console.WriteLine("Qual soma deseja fazer? |linha 3 - a| |coluna 2 - b| |diagonal principal - c| |diagonal secundaria - d| |todos os elementos - e|");
+        char escolha = char.Parse(Console.ReadLine());
+        int soma = 0;
+        switch(escolha)
+        {
+            case 'a':
+            
+            soma = SomaLinha(matriz);
+            
+            Console.WriteLine($"A soma da linha 3 é: {soma}");
+            
+            break;
+            
+            case 'b': 
+            soma = SomaColuna(matriz);
+            
+            Console.WriteLine($"A soma da coluna 2 é: {soma}");
+            
+            break;
+            
+            case 'c':
+            soma = SomaPrincipal(matriz);
+            
+            Console.WriteLine($"A soma da coluna princial é {soma}");
+            
+            break;
+            
+            case 'd':
+            soma = SomaSecundaria(matriz);
+            
+            Console.WriteLine($"A soma da coluna secundaria é {soma}");
+            
+            break;
+            
+            case 'e':
+            soma = SomaTodos(matriz);
+            
+            Console.WriteLine($"A soma de todas as posições da matriz é {soma}");
+            
+            break;
+        }
+    }
+    
+    public static void PreencherMatriz(int[,] matriz)
+    {
+        
+        Random random = new Random();
+        
+        for(int i = 0; i < matriz.GetLength(0); i++)
+        {
+            for(int j = 0; j < matriz.GetLength(1); j++)
+            {
+                matriz[i,j] = random.Next(1,31);
+            }
+        }
+    }
+    public static void MostrarMatriz(int[,] matriz)
+    {
+        for(int i = 0; i < matriz.GetLength(0); i++)
+        {
+            for(int j = 0; j < matriz.GetLength(1); j++)
+            {
+                Console.Write(matriz[i,j] + "\t");
+            }
+            Console.WriteLine();
+        }
+    }
+    //da linha 3 de M
+    public static int SomaLinha(int [,] matriz)
+    {
+        int soma = 0;
+        for(int j = 0; j < matriz.GetLength(1); j++)
+        {
+          soma += matriz[3,j];  
+        }
+        
+        return soma;
+    }
+    //da coluna 2 de M
+    public static int SomaColuna(int [,] matriz)
+    {
+        int soma = 0;
+        for(int i = 0; i < matriz.GetLength(0); i++)
+        {
+            soma += matriz[i,2];
+        }
+        return soma;
+    }
+    //da diagonal principal
+    public static int SomaPrincipal(int [,] matriz)
+    {
+        int soma = 0;
+        for(int i = 0, j = 0; i < matriz.GetLength(0); i++, j++)
+        {
+            soma += matriz[i,j];
+        }
+        return soma;
+    }
+    //da diagonal secundária
+    public static int SomaSecundaria(int [,] matriz)
+    {
+        int soma = 0;
+        for(int i = matriz.GetLength(0) - 1, j = 0; i >= 0 ; i--, j++)
+        {
+            soma += matriz[i,j];
+        }
+        return soma;
+    }
+    // todos elementos
+    public static int SomaTodos(int [,] matriz)
+    {
+        int soma = 0;
+        for(int i = 0; i < matriz.GetLength(0); i++)
+        {
+            for(int j = 0; j < matriz.GetLength(1); j++)
+            {
+                soma += matriz[i,j];
+            }
+        }
+        return soma;
+    }
 }
