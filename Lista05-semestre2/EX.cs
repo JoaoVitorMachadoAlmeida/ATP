@@ -43,11 +43,15 @@ b) da coluna 2 de M
 c) da diagonal principal
 d) da diagonal secundária
 e) de todos os elementos da matriz
+
+Ex9 - Dada a matriz A, a matriz transposta de A, representada por AT, terá em sua primeira
+coluna a primeira linha da matriz A; já a segunda coluna da matriz transposta será a
+segunda linha da matriz A, e assim sucessivamente. Diante disso, crie uma função que receba uma matriz e retorne a sua transposta.
 */
 using System;
 class Program {
   static void Main() {
-    Console.WriteLine("|Ex1 - 1| |Ex2 - 2| |Ex3 - 3| |Ex4 - 4| |Ex5 - 5| |Ex6 - 6| |Ex7 - 7| |Ex8 - 8| ");
+    Console.WriteLine("|Ex1 - 1| |Ex2 - 2| |Ex3 - 3| |Ex4 - 4| |Ex5 - 5| |Ex6 - 6| |Ex7 - 7| |Ex8 - 8| |Ex9 - 9| ");
     string escolha = Console.ReadLine();
 
     switch(escolha)
@@ -103,6 +107,13 @@ class Program {
 	Ex8 ex8 = new Ex8();
 	
 	ex8.Info();
+	
+	break;
+	
+	case "9":
+	Ex9 ex9 = new Ex9();
+	
+	ex9.Info();
 	
 	break;
     }
@@ -571,5 +582,62 @@ class Ex8
             }
         }
         return soma;
+    }
+}
+/************************/
+/*
+Dada a matriz A, a matriz transposta de A, representada por AT, terá em sua primeira
+coluna a primeira linha da matriz A; já a segunda coluna da matriz transposta será a
+segunda linha da matriz A, e assim sucessivamente. Diante disso, crie uma função que receba uma matriz e retorne a sua transposta.
+*/
+class Ex9
+{
+    private static Random random = new Random();
+    
+    public void Info()
+    {
+        int[,] matriz = new int[3,3];
+        PreencherMatrizA(matriz);
+        MostrarMatriz(matriz);
+        Console.WriteLine("--------------------------------------------\nTransporta:\n--------------------------------------------");
+        int[,] matrizTransposta = Transposta(matriz);
+        MostrarMatriz(matrizTransposta);
+     }
+    
+    public static void PreencherMatrizA(int[,] matriz)
+    {
+        for(int i = 0; i < matriz.GetLength(0); i++)
+        {
+            for(int j = 0; j < matriz.GetLength(1); j++)
+            {
+                matriz[i,j] = random.Next(1,31);
+            }
+        }
+        
+    }
+    public void MostrarMatriz(int [,] matriz)
+    {
+        for(int i = 0; i < matriz.GetLength(0); i++)
+        {
+            for(int j = 0; j < matriz.GetLength(1); j++)
+            {
+                Console.Write(matriz[i,j] + "\t");
+            }
+            Console.WriteLine();
+        }
+    }
+    public static int[,] Transposta(int[,] matriz)
+    {
+        int[,] matrizTransposta = new int[matriz.GetLength(0),matriz.GetLength(1)];
+        
+        
+        for(int i = 0; i < matrizTransposta.GetLength(0); i++)
+        {
+            for(int j = 0; j < matrizTransposta.GetLength(1); j++)
+            {
+                matrizTransposta[i,j] = matriz[j,i];
+            }
+        }
+        return matrizTransposta;
     }
 }
