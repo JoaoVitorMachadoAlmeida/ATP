@@ -47,11 +47,21 @@ e) de todos os elementos da matriz
 Ex9 - Dada a matriz A, a matriz transposta de A, representada por AT, terá em sua primeira
 coluna a primeira linha da matriz A; já a segunda coluna da matriz transposta será a
 segunda linha da matriz A, e assim sucessivamente. Diante disso, crie uma função que receba uma matriz e retorne a sua transposta.
+
+Ex10 - Escrever um procedimento que preencha uma matriz M(10,10) e a escreva. Faça outros
+procedimentos que recebam uma matriz preenchida, realize as trocas indicadas a seguir
+(um procedimento para cada uma delas) e exiba a matriz resultante da troca:
+a) a linha 2 com a linha 8
+b) a coluna 4 com a coluna 10
+c) a diagonal principal com a diagonal secundária
+Faça um programa que faça as devidas declarações e acione os módulos para exemplificar
+o seu uso.
+
 */
 using System;
 class Program {
   static void Main() {
-    Console.WriteLine("|Ex1 - 1| |Ex2 - 2| |Ex3 - 3| |Ex4 - 4| |Ex5 - 5| |Ex6 - 6| |Ex7 - 7| |Ex8 - 8| |Ex9 - 9| ");
+    Console.WriteLine("|Ex1 - 1| |Ex2 - 2| |Ex3 - 3| |Ex4 - 4| |Ex5 - 5| |Ex6 - 6| |Ex7 - 7| |Ex8 - 8| |Ex9 - 9| |Ex10 - 10| ");
     string escolha = Console.ReadLine();
 
     switch(escolha)
@@ -114,6 +124,13 @@ class Program {
 	Ex9 ex9 = new Ex9();
 	
 	ex9.Info();
+	
+	break;
+	
+	case "10":
+	Ex10 ex10 = new Ex10();
+	
+	ex10.Info();
 	
 	break;
     }
@@ -641,3 +658,89 @@ class Ex9
         return matrizTransposta;
     }
 }
+/**************************************/
+/*
+Escrever um procedimento que preencha uma matriz M(10,10) e a escreva. Faça outros
+procedimentos que recebam uma matriz preenchida, realize as trocas indicadas a seguir
+(um procedimento para cada uma delas) e exiba a matriz resultante da troca:
+a) a linha 2 com a linha 8
+b) a coluna 4 com a coluna 10
+c) a diagonal principal com a diagonal secundária
+Faça um programa que faça as devidas declarações e acione os módulos para exemplificar
+o seu uso.
+
+*/
+class Ex10
+{
+    private static Random random = new Random();
+    
+    public static void Escolha(int[,] matriz)
+    {
+        Console.WriteLine("Escolha o que deseja fazer com a matriz: \n|A - trocar linha 2 com a linha 8| \n|B - trocar coluna 4 com a coluna 10| \n|C - diagonal principal com a diagonal secundária|");
+        char escolha = char.Parse(Console.ReadLine().ToUpper());
+        
+        switch(escolha)
+        {
+            case 'A':
+            
+            TrocarLinha2com8(matriz);
+            MostrarMatriz(matriz);
+            
+            break;
+        }
+    }
+    
+    public void Info()
+    {
+        int[,] matriz = new int[10,10];
+        
+        PreencherMatriz(matriz);
+        
+        MostrarMatriz(matriz);
+        
+        Escolha(matriz);
+        
+        
+        
+    }
+    
+    public static void PreencherMatriz(int[,] matriz)
+    {
+       for(int i = 0; i < matriz.GetLength(0); i++)
+       {
+           for(int j = 0; j < matriz.GetLength(1); j++)
+           {
+              matriz[i,j] = random.Next(1,30); 
+           }
+       }
+    }
+    
+    public static void MostrarMatriz(int[,] matriz)
+    {
+        Console.WriteLine();
+        Console.WriteLine("------------------------------------------------------------------------------");
+        for(int i = 0; i < matriz.GetLength(0); i ++)
+        {
+            for(int j = 0; j < matriz.GetLength(1); j++)
+            {
+                Console.Write(matriz[i,j] + "\t");
+            }
+            Console.WriteLine();
+        }
+        Console.WriteLine("------------------------------------------------------------------------------");
+    }
+   // a) a linha 2 com a linha 8
+   public static int[,] TrocarLinha2com8(int[,] matriz)
+   {
+       int[,] matrizTrocada = matriz;
+       
+       for(int j = 0; j < matriz.GetLength(1); j++ )
+       {
+           matrizTrocada[7,j] = matriz[1,j];
+           matrizTrocada[1,j] = matriz[1,j];
+          
+       }
+       
+       return matrizTrocada;
+       
+   }
